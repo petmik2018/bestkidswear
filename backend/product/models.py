@@ -43,6 +43,10 @@ class Brand(models.Model):
             return settings.BASE_URL + self.main_image.url
         return ''
 
+    def get_brand_url(self):
+        curr_brand = f'/{self.slug}/'
+        return '/brands' + curr_brand
+
 
 class Action(models.Model):
     type = models.ForeignKey(Type, related_name="actions", on_delete=models.CASCADE, blank=True, null=True)

@@ -3,6 +3,19 @@ from .models import Type, Action, Brand, Product, Image
 from stock.serializers import StockSerializer
 
 
+class BrandShortSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Brand
+        fields = (
+            "id",
+            "name",
+            "main_image",
+            "get_image",
+            "get_brand_url",
+            "get_absolute_url",
+        )
+
+
 class BrandSerializer(serializers.ModelSerializer):
     class Meta:
         model = Brand

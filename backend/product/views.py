@@ -8,7 +8,7 @@ from rest_framework.decorators import api_view
 
 from .models import Type, Action, Brand, Product
 from .serializers import TypeSerializer, ActionDetailSerializer, ActionShortSerializer, ProductSerializer
-from .serializers import BrandSerializer
+from .serializers import BrandSerializer, BrandShortSerializer
 
 
 class ActionsList(APIView):
@@ -22,7 +22,7 @@ class ActionsList(APIView):
 class BrandsList(APIView):
     def get(self, request, format=None):
         brands = Brand.objects.all()
-        serializer = BrandSerializer(brands, many=True)
+        serializer = BrandShortSerializer(brands, many=True)
         return Response(serializer.data)
 
 

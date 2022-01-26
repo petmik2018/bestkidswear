@@ -8,33 +8,63 @@
         </p>
       </div>
     </section>
-    
-  		<div class="columns is-multiline">
-          <ActionBox
-          v-for="action in actions"
-          v-bind:key="action.id"
-          v-bind:action="action" />
-  		</div>
+
+
+    <div class="columns is-multiline">
+      <div class="column is-4">          
+        <div class="columns is-multiline">
+              <BrandBox
+            v-for="brand in brands"
+            v-bind:key="brand.id"
+            v-bind:brand="brand" />
+        </div>
+      </div> 
+      <div class="column is-4">
+        <div class="columns is-multiline">
+            <ActionBox
+            v-for="action in actions"
+            v-bind:key="action.id"
+            v-bind:action="action" />
+        </div>
+      </div>  
+      <div class="column is-4">          
+        <div class="columns is-multiline">
+              <ShopBox
+            v-for="shop in shops"
+            v-bind:key="shop.id"
+            v-bind:shop="shop" />
+        </div>
+      </div>       
+    </div> 
+
   </div>
 </template>
 
 <script>
 import axios from 'axios'
 import ActionBox from '@/components/ActionBox'
+import BrandBox from '@/components/BrandBox'
+import ShopBox from '@/components/ShopBox'
 
 
 export default {
   name: 'Home',
   data() {
   	return {
-  		actions:[]
+  		actions:[],
+      brands:[],
+      shops:[]
   	}
   },
   components: {
-    ActionBox
+    ActionBox,
+    BrandBox,
+    ShopBox
   },
   mounted() {
   	this.getActions()
+    this.getBrands()
+    this.getShops()
 
     document.title = 'BestKidsWear shop'
   },
@@ -53,8 +83,40 @@ export default {
   			})
 
       this.$store.commit('setIsLoading', false)
-  	}
-  }
+  	},
+
+    async getBrands(){
+      this.$store.commit('setIsLoading', true)
+
+      await axios
+        .get('api/v1/brands')
+        .then(response => {
+          this.brands = response.data
+          this.brands.sort(() => Math.random() - 0.5)
+        })
+        .catch(error => {
+          console.log(error)
+        })
+
+      this.$store.commit('setIsLoading', false)
+    }, 
+
+    async getShops(){
+      this.$store.commit('setIsLoading', true)
+
+      await axios
+        .get('api/v1/shops')
+        .then(response => {
+          this.shops = response.data
+          this.shops.sort(() => Math.random() - 0.5)
+        })
+        .catch(error => {
+          console.log(error)
+        })
+
+      this.$store.commit('setIsLoading', false)
+    }, 
+   }
 }
 </script>
 

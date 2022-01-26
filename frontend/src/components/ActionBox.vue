@@ -1,5 +1,5 @@
 <template>
-  <div class="column is-4-widescreen is-4-desktop is-6-tablet is-12-mobile" v-if=action.is_active>
+  <div class="column is-12-widescreen is-12-desktop is-12-tablet is-12-mobile" v-if=action.is_active>
           <div class="box">
             <figure class="image mb-4">
               <img :src="action.get_image">

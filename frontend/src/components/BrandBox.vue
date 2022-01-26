@@ -1,0 +1,42 @@
+<template>
+  <div class="column is-12-widescreen is-12-desktop is-12-tablet is-12-mobile">
+          <div class="box">
+            <figure class="image mb-4">
+              <img :src="brand.get_image">
+           
+              <div>
+                  <router-link  v-bind:to=" { path:brand.get_brand_url }" class="button mt-4 brand-button">О бренде</router-link>
+              </div>
+            </figure>
+
+              <div>
+                <h3 class="is-size-4">{{ brand.name }}</h3>
+                  <router-link  v-bind:to=" { path: brand.get_absolute_url, query: {brand: brand.name} }" class="button is-success mt-4">Посмотреть товары</router-link>
+              </div>
+
+          </div>
+  </div>          
+</template>
+
+<script>
+
+
+export default {
+	name: 'BrandBox',
+
+	props: {
+		brand: Object
+	},
+}
+
+</script>
+
+<style scoped>
+  .brand-button {
+/*    background-color: transparent;*/
+    opacity: 0.5;
+    position: absolute;
+    right: 30px;
+    bottom: 6px;
+  }  
+</style>
