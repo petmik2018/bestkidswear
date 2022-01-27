@@ -8,7 +8,7 @@ from rest_framework.decorators import api_view
 
 from .models import Type, Action, Brand, Product
 from .serializers import TypeSerializer, ActionDetailSerializer, ActionShortSerializer, ProductSerializer
-from .serializers import BrandSerializer, BrandShortSerializer
+from .serializers import BrandSerializer, BrandShortSerializer, ProductsListSerializer
 
 
 class ActionsList(APIView):
@@ -38,6 +38,7 @@ class BrandDetail(APIView):
         serializer = BrandSerializer(brand)
         return Response(serializer.data)
 
+
 class ActionDetail(APIView):
     def get_object(self, action_slug):
         try:
@@ -51,15 +52,28 @@ class ActionDetail(APIView):
         return Response(serializer.data)
 
 
-class ProductDetail(APIView):
-    def get_object(self, action_slug, product_slug):
+class ProductsList(APIView):
+    def get_object(self, brand_slug):
         try:
-            return Product.objects.filter(action__slug=action_slug).get(slug=product_slug)
+            return Brand.objects.get(slug=brand_slug)
+        except Action.DoesNotExist:
+            raise Http404
+
+    def get(self, request, brand_slug, format=None):
+        brand = self.get_object(brand_slug)
+        serializer = ProductsListSerializer(brand)
+        return Response(serializer.data)
+
+
+class ProductDetail(APIView):
+    def get_object(self, product_slug):
+        try:
+            return Product.objects.get(slug=product_slug)
         except Product.DoesNotExist:
             raise Http404
 
-    def get(self, request, action_slug, product_slug, format=None):
-        product = self.get_object(action_slug, product_slug)
+    def get(self, request, product_slug, format=None):
+        product = self.get_object(product_slug)
         serializer = ProductSerializer(product)
         return Response(serializer.data)
 

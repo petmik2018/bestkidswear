@@ -3,12 +3,12 @@
         <section class="hero is-small is-light">
         <div class="hero-body has-text-centered">
           <p class="title">
-          {{ brand.name }}
+          {{ brand.name }} {{ hidden }}
           </p>
         </div>
       </section>
 
-    <div class="columns is-multiline">
+    <div v-if="hidden" class="columns is-multiline">
       <div class="column is-2">          
           <img v-bind:src="brand.get_logo">
       </div> 
@@ -18,9 +18,16 @@
           <h1 class="has-text-centered">{{ brand.detailed_info }}</h1>
       </div>  
       <div class="column is-6">          
-          <img v-bind:src="brand.get_image">
+<!--           <img v-bind:src="brand.get_image"> -->
       </div>       
     </div> 
+
+    <div class="columns is-multiline">
+        <ProductBox
+          v-for="product in brand.products"
+          v-bind:key="product.id"
+          v-bind:product="product" />
+    </div>
   </div>
 
 </template>
@@ -28,6 +35,7 @@
 <script>
 import axios from 'axios'
 import { toast } from 'bulma-toast'
+import ProductBox from '@/components/ProductBox'
 
 
 export default {
@@ -35,12 +43,18 @@ export default {
 
   data() {
     return{
+      hidden: true,
       brand: {
       }
     }
   },
+  components: {
+    ProductBox
+  },
   mounted() {
-    this.getBrandInfo() 
+    this.getBrand()
+    
+
 
   },
   // watch: {
@@ -51,7 +65,7 @@ export default {
   //   }
   // },
   methods: {
-    async getBrandInfo() {
+    async getBrand() {
 
       const brandSlug = this.$route.params.brand_slug
 
@@ -62,6 +76,7 @@ export default {
         .then(response => {
           this.brand = response.data
           document.title = this.brand.name
+          this.hidden = !(this.$route.query.hidden === "true")
         })
         .catch(error => {
           console.log(error)

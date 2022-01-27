@@ -85,7 +85,6 @@ class Category(models.Model):
 
 
 class Product(models.Model):
-    action = models.ForeignKey(Action, related_name='products', on_delete=models.CASCADE, blank=True, null=True)
     brand = models.ForeignKey(Brand, related_name='products', on_delete=models.CASCADE)
     category = models.ForeignKey(Category, related_name='products', on_delete=models.PROTECT, blank=True, null=True)
     name = models.CharField(max_length=64)
@@ -108,7 +107,7 @@ class Product(models.Model):
         return f'{self.category.name} {self.name} цвет {self.color}'
 
     def get_absolute_url(self):
-        return f'/{self.action.slug}/{self.slug}/'
+        return f'/{self.slug}/'
 
 
 class ImageLibrary(models.Model):

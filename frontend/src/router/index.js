@@ -15,6 +15,7 @@ import MyAccount from '../views/MyAccount.vue'
 import Checkout from '../views/Checkout.vue'
 import Information from '../views/Information.vue'
 import Contact from '../views/Contact.vue'
+import Shop from '../views/Shop.vue'
 
 
 
@@ -74,6 +75,11 @@ const routes = [
     component: Brand,
   },
   {
+    path: '/shops/:shop_slug',
+    name: 'Shop',
+    component: Shop,
+  },
+  {
     path: '/:action_slug',
     name: 'Action',
     component: Action,
@@ -82,7 +88,7 @@ const routes = [
     }
   },
   {
-    path: '/:action_slug/:product_slug',
+    path: '/products/:product_slug',
     name: 'Product',
     component: Product,
   },

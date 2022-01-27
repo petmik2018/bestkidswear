@@ -16,38 +16,7 @@ class BrandShortSerializer(serializers.ModelSerializer):
         )
 
 
-class BrandSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Brand
-        fields = (
-            "id",
-            "name",
-            "get_absolute_url",
-            "logo_image",
-            "main_image",
-            "short_info",
-            "detailed_info",
-            "get_logo",
-            "get_image",
-        )
-
-
-class ActionShortSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Action
-        fields = (
-            "id",
-            "name",
-            "get_absolute_url",
-            "get_image",
-            "is_active",
-            "get_brand_url"
-        )
-
-
 class ImageSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Image
         fields = (
@@ -72,17 +41,49 @@ class ProductShortSerializer(serializers.ModelSerializer):
         )
 
 
+class BrandSerializer(serializers.ModelSerializer):
+    products = ProductShortSerializer(many=True)
+
+    class Meta:
+        model = Brand
+        fields = (
+            "id",
+            "name",
+            "get_absolute_url",
+            "logo_image",
+            "main_image",
+            "short_info",
+            "detailed_info",
+            "get_logo",
+            "get_image",
+            "products"
+        )
+
+
+class ActionShortSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Action
+        fields = (
+            "id",
+            "name",
+            "get_absolute_url",
+            "get_image",
+            "is_active",
+            "get_brand_url"
+        )
+
+
 class ProductSerializer(serializers.ModelSerializer):
     images = ImageSerializer(many=True)
     stocks = StockSerializer(many=True)
-    action = ActionShortSerializer(many=False)
+    brand = BrandShortSerializer(many=False)
 
     class Meta:
         model = Product
         fields = (
             "id",
             "name",
-            "action",
+            "brand",
             "get_absolute_url",
             "description",
             "basic_price",
@@ -102,6 +103,21 @@ class ActionDetailSerializer(serializers.ModelSerializer):
             "id",
             "name",
             "get_absolute_url",
+            # "products",
+            "short_info",
+            "get_image",
+        )
+
+
+class ProductsListSerializer(serializers.ModelSerializer):
+    products = ProductShortSerializer(many=True)
+
+    class Meta:
+        model = Brand
+        fields = (
+            "id",
+            "name",
+            "get_absolute_url",
             "products",
             "short_info",
             "get_image",
@@ -117,7 +133,7 @@ class ActionSerializer(serializers.ModelSerializer):
             "id",
             "name",
             "get_absolute_url",
-            'products',
+            # 'products',
             "short_info",
             "get_image",
         )
