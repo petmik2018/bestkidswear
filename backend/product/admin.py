@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.conf import settings
 from pyexcel_xlsx import get_data
 
-from .models import Type, Action, Brand, Category, Product, ImageLibrary, Image, ImageSetLoading, ProductSetLoading
+from .models import Brand, Category, Product, ImageLibrary, Image, ImageSetLoading, ProductSetLoading
 from stock.models import Stock
 
 import os
@@ -81,8 +81,6 @@ class ImageSetLoadingAdmin(admin.ModelAdmin):
         self.message_user(request, f'{message_bit}')
 
 
-admin.site.register(Type)
-admin.site.register(Action)
 admin.site.register(Brand)
 admin.site.register(Category)
 admin.site.register(Product)
