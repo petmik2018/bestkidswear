@@ -4,7 +4,7 @@
     <section class="hero is-small is-info-line mb-8">
       <div class="hero-body has-text-centered">
         <p class="title is-3">
-          Добро пожаловать на BESTKIDSWEAR! Бренды, распродажи и новые коллекции детской одежды
+          Бренды, распродажи, новые коллекции и магазины детской одежды
         </p>
       </div>
     </section>
@@ -66,7 +66,7 @@ export default {
     this.getBrands()
     this.getShops()
 
-    document.title = 'BestKidsWear shop'
+    document.title = 'BestKidsWear'
   },
   methods: {
   	async getActions(){

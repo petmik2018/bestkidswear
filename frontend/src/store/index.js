@@ -54,8 +54,7 @@ export default createStore({
       state.isAuthenticated = true  
     },
     setUser(state, userStr) {
-      state.user = JSON.parse(userStr)  
-      // console.log("User: ", state.user)    
+      state.user = JSON.parse(userStr)     
     },
     removeToken(state) {
       state.token = ''

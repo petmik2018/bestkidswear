@@ -57,6 +57,9 @@ class ShopBrand(models.Model):
     def get_brand_link(self):
         return self.brand.get_absolute_url()
 
+    def get_brand_url(self):
+        return self.brand.get_brand_url()
+
 
 class WhereToBuy(models.Model):
     product = models.ForeignKey(Product, related_name="where_to_buy", on_delete=models.CASCADE)

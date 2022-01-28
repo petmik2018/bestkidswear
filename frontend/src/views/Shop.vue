@@ -1,44 +1,39 @@
 <template>
   <div class="home">
-  	<section class="hero is-small is-info-line mb-8">
+  	<section class="hero is-small  is-light mb-8">
   		<div class="hero-body has-text-centered">
   			<p class="subtitle is-3">
-  				Добро пожаловать в магазин {{ shop.name }}
+  				Магазин {{ shop.name }}
   			</p>
-        <p class="subtitle is-3">
-          {{ shop }}
-        </p>
-        <p class="subtitle is-3">
-          {{ shop.brands }}
-        </p>
-        <p class="subtitle is-3">
-          {{ brands }}
-        </p>
   		</div>
-      <div
-          v-for="brand in shop.brands"
-            v-bind:key="brand.id"
-        >
-        
-          <div>{{ brand.get_brand_link}}</div>
-<!--             <router-link  v-bind:to="www.yandex.ru" class="button is-success mt-4">{{ brand.get_brand_name}} </router-link> -->
+    </section>
 
+    <div class="columns is-multiline">
+      <div class="column is-2">          
+          <img v-bind:src="shop.get_logo">
+      </div> 
+      <div class="column is-6">
+          <h1 class="has-text-centered">{{ shop.short_info }}</h1>
+          <br>
+          <h1 class="has-text-centered">{{ shop.detailed_info }}</h1>
+      </div>  
+      <div class="column is-4">          
+          <img v-bind:src="shop.get_image">
+      </div>       
+    </div> 
+
+    <div>
+      <div class="columns">
+        <div class="column   is-one-quarter"
+            v-for="brand in brands"
+            v-bind:key="brand.id"
+          >
+
+          <router-link  v-bind:to=" { path:brand.get_brand_url }" class="button is-success">{{ brand.get_brand_name }}</router-link>
 
         </div>
-  	</section>
-
-<!--         <div v-for="shop in shop_list"
-          v-bind:key="shop.id"
-          @click="goToBrand(shop)"
-        >
-        </div> -->
-
-<!--   		<div class="columns is-multiline">
-  			<ProductBox
-  				v-for="product in action.products"
-  				v-bind:key="product.id"
-  				v-bind:product="product" />
-  		</div> -->
+      </div>
+    </div>
   </div>
 </template>
 
@@ -77,7 +72,7 @@ export default {
   			.get(`/api/v1/shops/${shopSlug}/`)
   			.then(response => {
   				this.shop = response.data
-          // this.shop.products.sort(() => Math.random() - 0.5)
+          this.brands = this.shop.brands
   			})
   			.catch(error => {
   				console.log(error)

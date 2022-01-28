@@ -91,7 +91,6 @@ import axios from 'axios'
       }
     },
     beforeCreate() {
-      // document.title = 'Superzero shop'
       
       this.$store.commit('initializeStore')
 

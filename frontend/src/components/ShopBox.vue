@@ -4,14 +4,15 @@
             <figure class="image mb-4">
               <img :src="shop.get_image">
             </figure>
-
-              <div>
+            <div>
                 <div class="buttons">
                   <div class="button mt-4 is-success"
                     @click="goToShop(shop)"
                     >{{ shop.name }}
                   </div>
-                    <router-link  v-bind:to=" { path:shop.get_shop_url }" class="button mt-4 is-success">О магазине</router-link>
+                  <router-link  v-bind:to=" { path:shop.get_shop_url }" class="button mt-4 is-success">
+                    О магазине
+                  </router-link>
                 </div>
             </div>
           </div>

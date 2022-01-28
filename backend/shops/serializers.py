@@ -20,9 +20,8 @@ class ShopBrandSerializer(serializers.ModelSerializer):
     class Meta:
         model = ShopBrand
         fields = (
-            "brand",
             "get_brand_name",
-            "get_brand_link"
+            "get_brand_url"
         )
 
 
@@ -34,10 +33,12 @@ class ShopDetailSerializer(serializers.ModelSerializer):
         fields = (
             "id",
             "name",
-            "main_image",
+            "get_logo",
             "get_image",
             "get_shop_url",
             "get_absolute_url",
+            "short_info",
+            "detailed_info",
             "brands",
         )
 
