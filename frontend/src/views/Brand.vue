@@ -3,7 +3,7 @@
         <section class="hero is-small is-light">
         <div class="hero-body has-text-centered">
           <p class="title">
-          {{ brand.name }} {{ hidden }}
+          {{ brand.name }}
           </p>
         </div>
       </section>
@@ -12,19 +12,19 @@
       <div class="column is-2">          
           <img v-bind:src="brand.get_logo">
       </div> 
-      <div class="column is-4">
+      <div class="column is-6">
           <h1 class="has-text-centered">{{ brand.short_info }}</h1>
           <br>
           <h1 class="has-text-centered">{{ brand.detailed_info }}</h1>
       </div>  
-      <div class="column is-6">          
-<!--           <img v-bind:src="brand.get_image"> -->
+      <div class="column is-4">          
+          <img v-bind:src="brand.get_image">
       </div>       
     </div> 
 
     <div class="columns is-multiline">
         <ProductBox
-          v-for="product in brand.products"
+          v-for="product in products"
           v-bind:key="product.id"
           v-bind:product="product" />
     </div>
@@ -44,8 +44,8 @@ export default {
   data() {
     return{
       hidden: true,
-      brand: {
-      }
+      brand: {},
+      products: []
     }
   },
   components: {
@@ -75,6 +75,8 @@ export default {
         .get(`/api/v1/brands/${brandSlug}/`)
         .then(response => {
           this.brand = response.data
+          this.products = this.brand.products
+          this.products.sort(() => Math.random() - 0.5)
           document.title = this.brand.name
           this.hidden = !(this.$route.query.hidden === "true")
         })

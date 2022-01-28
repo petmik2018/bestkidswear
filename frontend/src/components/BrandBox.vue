@@ -10,8 +10,8 @@
             </figure>
 
               <div>
-
                 <h3 class="is-size-4">{{ brand.name }}</h3>
+                
 <!--                   <router-link  v-bind:to=" { path: brand.get_brand_url, query: {brand: brand.name} }" class="button is-success mt-4">
 Посмотреть товары</router-link> -->
                   <router-link  v-bind:to=" { path: brand.get_brand_url, query: {hidden: true} }" class="button is-success mt-4">

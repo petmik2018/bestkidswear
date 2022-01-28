@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import Brand, Product, Image
 from stock.serializers import StockSerializer
+from shops.serializers import WhereToBuySerializer
 
 
 class BrandShortSerializer(serializers.ModelSerializer):
@@ -37,7 +38,8 @@ class ProductShortSerializer(serializers.ModelSerializer):
             "get_fullname",
             "images",
             "basic_price",
-            "alt"
+            "alt",
+            "get_product_url",
         )
 
 
@@ -64,6 +66,7 @@ class ProductSerializer(serializers.ModelSerializer):
     images = ImageSerializer(many=True)
     stocks = StockSerializer(many=True)
     brand = BrandShortSerializer(many=False)
+    where_to_buy = WhereToBuySerializer(many=True)
 
     class Meta:
         model = Product
@@ -77,7 +80,8 @@ class ProductSerializer(serializers.ModelSerializer):
             "get_fullname",
             "images",
             "stocks",
-            "alt"
+            "alt",
+            "where_to_buy"
         )
 
 

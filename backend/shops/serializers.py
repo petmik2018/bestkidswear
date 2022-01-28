@@ -1,6 +1,5 @@
 from rest_framework import serializers
-from .models import Shop, ShopBrand
-from product.serializers import BrandShortSerializer
+from .models import Shop, ShopBrand, WhereToBuy
 
 
 class ShopSerializer(serializers.ModelSerializer):
@@ -13,6 +12,7 @@ class ShopSerializer(serializers.ModelSerializer):
             "get_image",
             "get_shop_url",
             "get_absolute_url",
+            "main_link"
         )
 
 
@@ -39,4 +39,13 @@ class ShopDetailSerializer(serializers.ModelSerializer):
             "get_shop_url",
             "get_absolute_url",
             "brands",
+        )
+
+
+class WhereToBuySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = WhereToBuy
+        fields = (
+            "shop",
+            "link"
         )

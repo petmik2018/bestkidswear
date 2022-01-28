@@ -35,35 +35,16 @@
 
 
 			<div class="column is-3">
-				<h1 class="subtitle">Выбрать размер</h1>
-				<table class="table is-fullwidth">
-					<thead>
-						<tr>
-							<th>Order</th>
-							<th>Size</th>
-							<th>Price</th>
-							<th>Info</th>
-						</tr>
-					</thead>
-					<tbody>
-					<tr v-for="item in sizes"
-						v-bind:key="item.id">
-						<td>
-							<div class="control" v-if="item.quantity">
-								<input type="checkbox" v-model="ordered[item.id]">
-							</div>
-						</td>
-						<td>{{ item.size }}</td>
-						<td>{{ item.price }}</td>
-						<td>{{ getSizeInfo(item.quantity) }}</td>
-					</tr>
-
-				</tbody>
-				</table>
-
-				<div class="field has-addons mt-6">
+				<h1 class="subtitle">Доступные размеры:</h1>
+				<div v-for="item in sizes">{{ item.size }}</div>
+				<h1 class="subtitle">Купить в магазинах:</h1>
+				<div class="field has-addons mt-6"
+					v-for="shop in shops"
+					v-bind:key="shop.id"
+					@click="goToShop(shop)"
+					>
 					<div class="control">
-						<a class="button is-success" @click="addToCart">Добавить в корзину</a>
+						<a class="button is-success">{{ shop.shop }}</a>
 					</div>
 				</div>
 				
@@ -90,7 +71,8 @@
 				main_image: {},
 				quantity: 1,
 				sizes:[],
-				ordered: []
+				ordered: [],
+				shops: []
 			}
 		},
 		mounted() {
@@ -100,11 +82,11 @@
 			async getProduct() {
 				this.$store.commit('setIsLoading', true)
 
-				const action_slug = this.$route.params.action_slug
+				const brand_slug = this.$route.params.brand_slug
 				const product_slug = this.$route.params.product_slug
 
 				await axios
-					.get(`/api/v1/products/${action_slug}/${product_slug}`)
+					.get(`/api/v1/products/${product_slug}`)
 					.then(response => {
 						this.product = response.data
 						console.log(this.product)
@@ -112,6 +94,7 @@
 						this.images = this.product.images
 						this.main_image = this.product.images.find(item => item.is_main == 1)			    
 						this.sizes = this.product.stocks
+						this.shops = this.product.where_to_buy
 					})
 					.catch(error => {
 						console.log(error)
@@ -135,31 +118,9 @@
 				this.main_image = new_main_image,
 				this.main_image.is_main = 1
 			},
-
-			addItemToCart(item) {	
-				this.$store.commit('addToCart', item) 
+			goToShop(shop) {
+				window.open(shop.link, '_blank')
 			},
-
-			addToCart() {	
-				const currProduct = this.product
-				const addToCart = this.addItemToCart
-
-			    this.ordered.forEach(function(item, i) {if (item) {
-						var productStock = currProduct.stocks.filter(pcs => pcs.id == i)[0]
-						var cartItem = {
-							product: currProduct,
-							quantity: 1,
-							size: productStock.size,
-							price: productStock.price,					
-							}
-						addToCart(cartItem)
-						}
-					})			    	
-			    const message = 'Выбранные товары добавлены в корзину'
-			    this.$store.commit('makeSuccessToast', message, 'is-success')
-				this.$router.push(`${currProduct.action.get_absolute_url}`)
-			},
-
 		}
 	}	
 

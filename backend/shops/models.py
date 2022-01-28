@@ -1,7 +1,7 @@
 from django.db import models
 from django.conf import settings
 
-from product.models import Brand
+from product.models import Brand, Product
 
 
 class Shop(models.Model):
@@ -17,6 +17,7 @@ class Shop(models.Model):
     main_image = models.ImageField(upload_to="brands")
     short_info = models.CharField(max_length=255)
     detailed_info = models.TextField(blank=True, null=True)
+    main_link = models.CharField(max_length=128, blank=True, null=True)
 
 
     class Meta:
@@ -55,3 +56,23 @@ class ShopBrand(models.Model):
 
     def get_brand_link(self):
         return self.brand.get_absolute_url()
+
+
+class WhereToBuy(models.Model):
+    product = models.ForeignKey(Product, related_name="where_to_buy", on_delete=models.CASCADE)
+    shop = models.CharField(max_length=64, null=True, blank=True)
+    link = models.CharField(max_length=128, null=True, blank=True)
+
+    def __str__(self):
+        my_name = self.product.name + ' ' + self.product.color + ' ' + str(self.id)
+        return my_name
+
+
+class WhereToBuyUpload(models.Model):
+    name = models.CharField(max_length=64)
+    loaded_at = models.DateTimeField(auto_now_add=True)
+    source = models.FileField(upload_to="uploads/")
+    completed = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.name

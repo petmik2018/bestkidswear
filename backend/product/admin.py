@@ -28,13 +28,13 @@ class ProductSetLoadingAdmin(admin.ModelAdmin):
                     collection.pop(0)
 
                     my_im_lib = loading.images_library.name
-                    my_action = loading.action
+                    # my_action = loading.action
 
                     for item in collection:
                         my_brand = Brand.objects.get(name=item[2])
                         my_slug = f'{item[0]}_{item[1]}'
                         my_category = Category.objects.get(name=item[3])
-                        my_product = Product.objects.create(action=my_action, name=item[0], color=item[1],
+                        my_product = Product.objects.create(name=item[0], color=item[1],
                                                             slug=my_slug, brand=my_brand,
                                                             category=my_category, description=item[4],
                                                             basic_price=item[5], sizes_scale=item[6], alt=item[8])

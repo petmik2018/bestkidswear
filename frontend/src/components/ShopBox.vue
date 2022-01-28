@@ -3,17 +3,17 @@
           <div class="box">
             <figure class="image mb-4">
               <img :src="shop.get_image">
-           
-              <div>
-                  <router-link  v-bind:to=" { path:shop.get_shop_url }" class="button mt-4 brand-button">О магазине</router-link>
-              </div>
             </figure>
 
               <div>
-                <h3 class="is-size-4">{{ shop.name }}</h3>
-<!--                   <router-link  v-bind:to=" { path: brand.get_absolute_url, query: {brand: brand.name} }" class="button is-success mt-4">Посмотреть товары</router-link> -->
-              </div>
-
+                <div class="buttons">
+                  <div class="button mt-4 is-success"
+                    @click="goToShop(shop)"
+                    >{{ shop.name }}
+                  </div>
+                    <router-link  v-bind:to=" { path:shop.get_shop_url }" class="button mt-4 is-success">О магазине</router-link>
+                </div>
+            </div>
           </div>
   </div>          
 </template>
@@ -27,6 +27,11 @@ export default {
 	props: {
 		shop: Object
 	},
+  methods: {
+        goToShop(shop) {
+        window.open(shop.main_link, '_blank')
+      },
+  }
 }
 
 </script>

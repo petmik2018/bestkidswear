@@ -67,6 +67,11 @@ class Product(models.Model):
     def get_absolute_url(self):
         return f'/{self.slug}/'
 
+    def get_product_url(self):
+        curr_brand = f'/{self.brand.slug}'
+        curr_product = f'/{self.slug}/'
+        return '/products' + curr_product
+
 
 class ImageLibrary(models.Model):
     name = models.CharField(max_length=64)
