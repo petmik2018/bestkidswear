@@ -4,7 +4,7 @@
     <section class="hero is-small is-info-line mb-8">
       <div class="hero-body has-text-centered">
         <p class="title is-3">
-          Бренды, распродажи, новые коллекции и магазины детской одежды
+          Детская одежда и обувь - бренды, магазины, распродажи и новые коллекции
         </p>
       </div>
     </section>
@@ -19,14 +19,16 @@
             v-bind:brand="brand" />
         </div>
       </div> 
+
       <div class="column is-4">
         <div class="columns is-multiline">
-            <ActionBox
-            v-for="action in actions"
-            v-bind:key="action.id"
-            v-bind:action="action" />
+            <NewBox
+            v-for="my_new in news"
+            v-bind:key="my_new.id"
+            v-bind:my_new="my_new" />
         </div>
       </div>  
+
       <div class="column is-4">          
         <div class="columns is-multiline">
               <ShopBox
@@ -45,6 +47,7 @@ import axios from 'axios'
 import ActionBox from '@/components/ActionBox'
 import BrandBox from '@/components/BrandBox'
 import ShopBox from '@/components/ShopBox'
+import NewBox from '@/components/NewBox'
 
 
 export default {
@@ -53,18 +56,21 @@ export default {
   	return {
   		actions:[],
       brands:[],
-      shops:[]
+      shops:[],
+      news:[]
   	}
   },
   components: {
     ActionBox,
     BrandBox,
-    ShopBox
+    ShopBox,
+    NewBox
   },
   mounted() {
   	this.getActions()
     this.getBrands()
     this.getShops()
+    this.getNews()
 
     document.title = 'BestKidsWear'
   },
@@ -112,7 +118,23 @@ export default {
         })
         .catch(error => {
           console.log(error)
+        }),        
+
+      this.$store.commit('setIsLoading', false)
+    }, 
+
+
+    async getNews(){
+      this.$store.commit('setIsLoading', true)
+
+      await axios
+        .get('api/v1/news')
+        .then(response => {
+          this.news = response.data
         })
+        .catch(error => {
+          console.log(error)
+        }),        
 
       this.$store.commit('setIsLoading', false)
     }, 
