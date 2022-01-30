@@ -11,7 +11,10 @@
 
 
     <div class="columns is-multiline">
-      <div class="column is-4">          
+      <div class="column is-4">    
+        <div class="column  has-text-centered">
+            <p class=" subtitle is-4">Бренды</p>
+        </div>  
         <div class="columns is-multiline">
               <BrandBox
             v-for="brand in brands"
@@ -21,6 +24,9 @@
       </div> 
 
       <div class="column is-4">
+         <div class="column  has-text-centered">
+            <p class=" subtitle is-4">Новости</p>
+        </div>         
         <div class="columns is-multiline">
             <NewBox
             v-for="my_new in news"
@@ -29,7 +35,10 @@
         </div>
       </div>  
 
-      <div class="column is-4">          
+      <div class="column is-4">   
+        <div class="column  has-text-centered">
+            <p class=" subtitle is-4">Магазины</p>
+        </div>              
         <div class="columns is-multiline">
               <ShopBox
             v-for="shop in shops"
@@ -44,7 +53,7 @@
 
 <script>
 import axios from 'axios'
-import ActionBox from '@/components/ActionBox'
+// import ActionBox from '@/components/ActionBox'
 import BrandBox from '@/components/BrandBox'
 import ShopBox from '@/components/ShopBox'
 import NewBox from '@/components/NewBox'
@@ -61,13 +70,12 @@ export default {
   	}
   },
   components: {
-    ActionBox,
     BrandBox,
     ShopBox,
     NewBox
   },
   mounted() {
-  	this.getActions()
+  	// this.getActions()
     this.getBrands()
     this.getShops()
     this.getNews()
@@ -75,22 +83,6 @@ export default {
     document.title = 'BestKidsWear'
   },
   methods: {
-  	async getActions(){
-      this.$store.commit('setIsLoading', true)
-
-  		await axios
-  			.get('api/v1/actions')
-  			.then(response => {
-  				this.actions = response.data
-          this.actions.sort(() => Math.random() - 0.5)
-  			})
-  			.catch(error => {
-  				console.log(error)
-  			})
-
-      this.$store.commit('setIsLoading', false)
-  	},
-
     async getBrands(){
       this.$store.commit('setIsLoading', true)
 
@@ -131,6 +123,16 @@ export default {
         .get('api/v1/news')
         .then(response => {
           this.news = response.data
+          this.news.sort(function (a, b) {
+              if (a.date > b.date) {
+                return 1;
+              }
+              if (a.date < b.date) {
+                return -1;
+              }
+              // a должно быть равным b
+              return 0;
+            });
         })
         .catch(error => {
           console.log(error)

@@ -3,13 +3,8 @@
   	<section class="hero is-small is-info-line mb-8">
   		<div class="hero-body has-text-centered">
   			<p class="title is-3">
-  				Здесь скоро появится полная информация о бонусах
+  				Здесь скоро появится подробная информация об этом сайте
   			</p>
-<!--   			<p>
-  			</p>
-    		<p class="subtitle is-4">
-  				Бонус при первом заказе: {{ initial_bonus}} руб.
-  			</p> -->
   		</div>
   	</section>
 

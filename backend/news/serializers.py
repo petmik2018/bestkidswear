@@ -11,6 +11,7 @@ class NewShortSerializer(serializers.ModelSerializer):
             "main_image",
             "get_image",
             "get_absolute_url",
-            "detailed_info"
+            "detailed_info",
+            "date"
         )
 

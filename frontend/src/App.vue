@@ -37,8 +37,6 @@
           <div class="navbar-end">
             <router-link to="/information" class="navbar-item">Информация</router-link>
             <router-link to="/contact" class="navbar-item">Контакт</router-link>
-            <router-link to="/type/sales" class="navbar-item">Распродажи</router-link>
-            <router-link to="/type/news" class="navbar-item">Новинки</router-link>
 
             <div class="navbar-item">
               <div class="buttons">
@@ -48,13 +46,7 @@
 
                   <template v-else>
                     <router-link to="/log-in" class="button is-light">Вход</router-link>
-                  </template>
-
-                <router-link to="/cart" class="button is-success">
-                  <span class="icon"><i class="fas fa-shopping-cart"></i></span>
-                  <span>Cart ({{ cartTotalLength }})</span>                  
-                </router-link>                
-
+                  </template>            
               </div>
             </div>
           </div>            
@@ -85,9 +77,6 @@ import axios from 'axios'
     data() {
       return {
         showMobileMenu: false,
-        cart: {
-          items: []
-        },
       }
     },
     beforeCreate() {
@@ -102,20 +91,6 @@ import axios from 'axios'
         axios.defaults.headers.common['Authorization'] = ""
       }
     },
-    mounted() {
-      this.cart = this.$store.state.cart
-    },
-    computed: {
-      cartTotalLength() {
-        let totalLength = 0
-
-        for (let i = 0; i < this.cart.items.length; i++) {
-          totalLength += this.cart.items[i].quantity
-        }
-
-        return totalLength
-      },
-    }
   }
 
 </script>

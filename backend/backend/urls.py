@@ -11,10 +11,10 @@ urlpatterns = [
     path('api-token-auth/', views.obtain_auth_token, name='api-token-auth'),
     path('api/v1/', include('product.urls')),
     path('api/v1/', include('profiles.urls')),
-    path('api/v1/', include('orders.urls')),
+    # path('api/v1/', include('orders.urls')),
     path('api/v1/', include('stock.urls')),
     path('api/v1/', include('contact.urls')),
     path('api/v1/', include('shops.urls')),
-    path('api/v1/', include('action.urls')),
+    # path('api/v1/', include('action.urls')),
     path('api/v1/', include('news.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

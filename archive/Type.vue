@@ -22,7 +22,6 @@
 
 <script>
 import axios from 'axios'
-import ActionBox from '@/components/ActionBox'
 import { toast } from 'bulma-toast'
 
 
@@ -37,7 +36,7 @@ export default {
     }
   },
   components: {
-    ActionBox
+    // ActionBox
   },
   mounted() {
     this.getType() 

@@ -11,7 +11,7 @@
   				Телефон +7-916-6298553
   			</p>
     		<p class="subtitle is-4">
-  				E-mail superzeroshop@yandex.ru
+  				E-mail petmik@yandex.ru
   			</p>
   		</div>
   		<div class="hero-body has-text-centered">

@@ -58,9 +58,6 @@ export default {
   },
   mounted() {
   	this.getProducts()
-
-  	document.title = "Shop"
-
   },
   methods: {
   	async getProducts(){
@@ -73,6 +70,7 @@ export default {
   			.then(response => {
   				this.shop = response.data
           this.brands = this.shop.brands
+          document.title = this.shop.name
   			})
   			.catch(error => {
   				console.log(error)

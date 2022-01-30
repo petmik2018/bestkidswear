@@ -4,11 +4,8 @@ import store from '../store'
 
 import Home from '../views/Home.vue'
 import Brand from '../views/Brand.vue'
-import Action from '../views/Action.vue'
 import Product from '../views/Product.vue'
-import Type from '../views/Type.vue'
 import Search from '../views/Search.vue'
-import Cart from '../views/Cart.vue'
 import SignUp from '../views/SignUp.vue'
 import LogIn from '../views/LogIn.vue'
 import MyAccount from '../views/MyAccount.vue'
@@ -57,11 +54,6 @@ const routes = [
     component: Search
   },
   {
-    path: '/cart',
-    name: 'Cart',
-    component: Cart
-  },
-  {
     path: '/cart/checkout',
     name: 'Checkout',
     component: Checkout,
@@ -80,22 +72,9 @@ const routes = [
     component: Shop,
   },
   {
-    path: '/:action_slug',
-    name: 'Action',
-    component: Action,
-    props(route) {
-      return {  my_prop: route.query.my_prop }
-    }
-  },
-  {
     path: '/products/:product_slug',
     name: 'Product',
     component: Product,
-  },
-  {
-    path: '/type/:type_slug',
-    name: 'type',
-    component: Type,
   },
     {
     path: '/information',
