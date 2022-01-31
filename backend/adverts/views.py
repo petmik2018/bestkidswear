@@ -5,9 +5,8 @@ from .models import Advert
 from .serializers import AdvertShortSerializer
 
 
-class NewsList(APIView):
+class AdvertsList(APIView):
     def get(self, request, format=None):
         news = Advert.objects.all()
         serializer = AdvertShortSerializer(news, many=True)
         return Response(serializer.data)
-

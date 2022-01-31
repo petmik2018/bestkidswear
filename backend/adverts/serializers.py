@@ -14,4 +14,3 @@ class AdvertShortSerializer(serializers.ModelSerializer):
             "detailed_info",
             "date"
         )
-
