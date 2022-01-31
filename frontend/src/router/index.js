@@ -9,7 +9,7 @@ import Search from '../views/Search.vue'
 import SignUp from '../views/SignUp.vue'
 import LogIn from '../views/LogIn.vue'
 import MyAccount from '../views/MyAccount.vue'
-import Checkout from '../views/Checkout.vue'
+// import Checkout from '../views/Checkout.vue'
 import Information from '../views/Information.vue'
 import Contact from '../views/Contact.vue'
 import Shop from '../views/Shop.vue'
@@ -53,14 +53,14 @@ const routes = [
     name: 'Search',
     component: Search
   },
-  {
-    path: '/cart/checkout',
-    name: 'Checkout',
-    component: Checkout,
-    meta: {
-      requireLogin: true
-    } 
-  },
+  // {
+  //   path: '/cart/checkout',
+  //   name: 'Checkout',
+  //   component: Checkout,
+  //   meta: {
+  //     requireLogin: true
+  //   } 
+  // },
   {
     path: '/brands/:brand_slug',
     name: 'Brand',
