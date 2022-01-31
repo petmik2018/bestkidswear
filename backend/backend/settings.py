@@ -27,14 +27,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # ЭТО ДЛЯ РАЗРАБОТКИ БЕЗ ДОКЕРА
 # BASE_URL = "http://127.0.0.1:8000"
 # SECRET_KEY = 'django-insecure-f4h&l3y4gz&f@e9@g)q=!62ze5u7r5(g+=-*f)589^p-i$j9h&'
-# DEBUG = True
+DEBUG = True
 # ALLOWED_HOSTS = ['127.0.0.1', '80.78.246.218', 'superzero.ru', 'bestkidwear.ru', 'redzeroes.ru']
 # ALLOWED_HOSTS = ['*']
 
 # ЭТО В КОНТЕЙНЕРЕ
 BASE_URL = environ.get('BASE_URL')
 SECRET_KEY = environ.get('SECRET_KEY')
-DEBUG = bool(int(environ.get("DEBUG", default=1)))
+# DEBUG = bool(int(environ.get("DEBUG", default=1)))
 ALLOWED_HOSTS = environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
 
 
