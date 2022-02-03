@@ -29,15 +29,27 @@
 
 					<div class="field">
 						<label>Password</label>
-						<div class="control">
+						<div v-if="show_password" class="control">
 							<input type="text" class="input" v-model="password">
+						</div>
+						<div v-else class="control">
+							<input type="password" class="input" v-model="password">
 						</div>
 					</div>
 
 					<div class="field">
 						<label>Password2</label>
-						<div class="control">
+						<div v-if="show_password" class="control">
 							<input type="text" class="input" v-model="password2">
+							<div class="has-text-centered">
+								<a @click="show_password=!show_password">Скрыть пароль</a>
+							</div>
+						</div>
+						<div v-else class="control">
+							<input type="password" class="input" v-model="password2">
+							<div class="has-text-centered">
+								<a @click="show_password=!show_password">Показать пароль</a>
+							</div>
 						</div>
 					</div>
 
@@ -69,6 +81,7 @@ export default {
 	name: 'SignUp',
 	data() {
 		return {
+			show_password: false,
 			username: '',
 			email: '',
 			password: '',

@@ -9,10 +9,10 @@ import Search from '../views/Search.vue'
 import SignUp from '../views/SignUp.vue'
 import LogIn from '../views/LogIn.vue'
 import MyAccount from '../views/MyAccount.vue'
-// import Checkout from '../views/Checkout.vue'
 import Information from '../views/Information.vue'
 import Contact from '../views/Contact.vue'
 import Shop from '../views/Shop.vue'
+import Page404 from '../views/Page404.vue'
 
 
 
@@ -53,14 +53,6 @@ const routes = [
     name: 'Search',
     component: Search
   },
-  // {
-  //   path: '/cart/checkout',
-  //   name: 'Checkout',
-  //   component: Checkout,
-  //   meta: {
-  //     requireLogin: true
-  //   } 
-  // },
   {
     path: '/brands/:brand_slug',
     name: 'Brand',
@@ -86,8 +78,21 @@ const routes = [
     name: 'contact',
     component: Contact,
   },
-
-
+    {
+    path: '/api/v1',
+    name: 'page404',
+    component: Page404,
+  },
+      {
+    path: '/api/v1/:any_param',
+    name: 'page404',
+    component: Page404,
+  },
+  {
+    path: '/:any_param',
+    name: 'page404',
+    component: Page404,
+  },
 ]
 
 const router = createRouter({
