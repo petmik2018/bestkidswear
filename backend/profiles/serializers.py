@@ -45,7 +45,10 @@ class ProfileSerializer(serializers.ModelSerializer):
             "email",
             'phone',
             "address",
-            "bonuses"
+            "bonuses",
+            "is_shop_owner",
+            "is_brand_owner",
+            "brands"
         )
 
 

@@ -53,8 +53,6 @@ export default {
   },
   mounted() {
     this.getBrand()
-    
-
 
   },
   // watch: {
@@ -98,8 +96,7 @@ export default {
 
       this.$store.commit('setIsLoading', false)
 
-    }
-
+    },
   }
 }
 </script>

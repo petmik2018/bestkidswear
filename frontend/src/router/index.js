@@ -83,7 +83,7 @@ const routes = [
     name: 'page404',
     component: Page404,
   },
-      {
+  {
     path: '/api/v1/:any_param',
     name: 'page404',
     component: Page404,

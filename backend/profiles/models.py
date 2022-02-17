@@ -31,6 +31,8 @@ class Profile(models.Model):
     address = models.CharField(max_length=256)
     parent = models.ForeignKey(User, related_name='children', on_delete=models.CASCADE, blank=True, null=True)
     bonuses = models.PositiveIntegerField(blank=True, null=True)
+    is_shop_owner = models.BooleanField(default=False)
+    is_brand_owner = models.BooleanField(default=False)
 
     def __str__(self):
         return self.user.username

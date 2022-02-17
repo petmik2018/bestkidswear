@@ -1,6 +1,8 @@
 from django.db import models
 from django.conf import settings
 
+from profiles.models import Profile
+
 
 class Brand(models.Model):
     name = models.CharField(max_length=64)
@@ -9,6 +11,7 @@ class Brand(models.Model):
     main_image = models.ImageField(upload_to="brands")
     short_info = models.CharField(max_length=255)
     detailed_info = models.TextField(blank=True, null=True)
+    owner = models.ForeignKey(Profile, related_name='brands', on_delete=models.CASCADE, blank=True, null=True)
 
     class Meta:
         ordering = ('name',)
