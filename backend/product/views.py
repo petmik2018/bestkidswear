@@ -12,7 +12,7 @@ from .serializers import BrandSerializer, BrandShortSerializer
 
 class BrandsList(APIView):
     def get(self, request, format=None):
-        brands = Brand.objects.all()
+        brands = Brand.objects.all().filter(is_active=True)
         serializer = BrandShortSerializer(brands, many=True)
         return Response(serializer.data)
 
@@ -30,17 +30,17 @@ class BrandDetail(APIView):
         return Response(serializer.data)
 
 
-class ProductsList(APIView):
-    def get_object(self, brand_slug):
-        try:
-            return Brand.objects.get(slug=brand_slug)
-        except Brand.DoesNotExist:
-            raise Http404
-
-    def get(self, request, brand_slug, format=None):
-        brand = self.get_object(brand_slug)
-        serializer = ProductsListSerializer(brand)
-        return Response(serializer.data)
+# class ProductsList(APIView):
+#     def get_object(self, brand_slug):
+#         try:
+#             return Brand.objects.get(slug=brand_slug)
+#         except Brand.DoesNotExist:
+#             raise Http404
+#
+#     def get(self, request, brand_slug, format=None):
+#         brand = self.get_object(brand_slug)
+#         serializer = ProductsListSerializer(brand)
+#         return Response(serializer.data)
 
 
 class ProductDetail(APIView):

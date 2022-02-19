@@ -1,5 +1,5 @@
 from django.contrib import admin
 
-from .models import BrandClick
+from .models import AbstractClick
 
-admin.site.register(BrandClick)
+admin.site.register(AbstractClick)

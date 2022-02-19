@@ -2,6 +2,8 @@ from rest_framework import serializers
 
 from .models import BonusSettings, Profile, User
 
+from product.serializers import BrandShortSerializer, BrandClicksSerializer
+
 
 class BonusSettingsSerializer(serializers.ModelSerializer):
     class Meta:
@@ -35,6 +37,7 @@ class UserShortSerializer(serializers.ModelSerializer):
 
 class ProfileSerializer(serializers.ModelSerializer):
     user = UserSerializer(many=False)
+    brands = BrandShortSerializer(many=True)
 
     class Meta:
         model = Profile
@@ -48,6 +51,20 @@ class ProfileSerializer(serializers.ModelSerializer):
             "bonuses",
             "is_shop_owner",
             "is_brand_owner",
+            "brands"
+        )
+
+
+class ProfileClicksSerializer(serializers.ModelSerializer):
+    user = UserShortSerializer(many=False)
+    brands = BrandClicksSerializer(many=True)
+
+    class Meta:
+        model = Profile
+        fields = (
+            "id",
+            "user",
+            "name",
             "brands"
         )
 

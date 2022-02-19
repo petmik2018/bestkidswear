@@ -4,9 +4,6 @@ import { toast } from 'bulma-toast'
 
 export default createStore({
   state: {
-  	// cart: {
-  	// 	items: [],
-  	// },
   	isAuthenticated: false,
   	token: '',
     user: {},
@@ -14,11 +11,6 @@ export default createStore({
   },
   mutations: {
   	initializeStore(state) {
-  		// if (localStorage.getItem('cart')) {
-  		// 	state.cart = JSON.parse(localStorage.getItem('cart'))
-  		// } else {
-  		// 	localStorage.setItem('cart', JSON.stringify(state.cart))
-  		// }
 
       if (localStorage.getItem('token')) {
         state.token = localStorage.getItem('token')
@@ -31,21 +23,6 @@ export default createStore({
       }
 
   	},
-  	// addToCart(state, item) {
-  	// 	const exists = state.cart.items.filter(i => i.product.id === item.product.id && i.size === item.size)
-
-  	// 	if (exists.length) {
-  	// 		exists[0].quantity = parseInt(exists[0].quantity) + parseInt(item.quantity)
-  	// 	} else {
-  	// 		state.cart.items.push(item)
-  	// 	}
-
-  	// 	localStorage.setItem('cart', JSON.stringify(state.cart))
-  	// },
-   //  clearCart(state) {
-   //    state.cart.items = []
-   //    localStorage.setItem('cart', JSON.stringify(state.cart))
-   //  },
   	setIsLoading(state, status) {
   		state.isLoading = status
   	},

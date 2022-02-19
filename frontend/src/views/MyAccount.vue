@@ -4,8 +4,44 @@
 			<div class="column is-10">
 				<h1 class="title">Личный кабинет {{ user.username }}</h1>
 			</div>
-			<div class="column is-10">
-				<h1 class="title">в стадии разработки</h1>
+			<div class="column is-5">
+				<h2 class="subtitle">Мои бренды</h2>
+		        <div
+		            v-for="brand in brands"
+		            v-bind:key="brand.id"
+		            v-bind:brand="brand" >
+		            <div class="subtitle">{{ brand.name }}</div>
+		            <h2 class="subtitle">Посещения:</h2>
+		            <div
+		            	v-for="click in brand.clicks"
+		            	v-bind:key="click.id"
+		            	v-bind:click="click">
+		            	{{ click.get_date_time }}		            	
+		            </div>
+		        </div>
+			</div>
+
+			<div class="column is-5">
+		        <div
+		            v-for="brand in brands"
+		            v-bind:key="brand.id"
+		            v-bind:brand="brand" >
+		            <div class="subtitle">Мои товары {{ brand.name }}</div>
+
+		            <div
+		            	v-for="product in brand.products"
+		            	v-bind:key="product.id"
+		            	v-bind:product="product">
+		            	<div class="subtitle">{{ product.get_fullname}}</div>
+
+			            <div
+			            	v-for="click in product.clicks"
+			            	v-bind:key="click.id"
+			            	v-bind:click="click">
+			            	{{ click.get_date_time }}		            	
+			            </div>
+		            </div>
+		        </div>
 			</div>
 
 			<div class="column is-2">
@@ -24,20 +60,53 @@ export default {
 	data() {
 		return {
 			user: {},
-			orders: []
+			brands: [],
+			products: []
 		}
 	},
 	mounted() {
+		document.title = 'User room'
 		this.user = this.$store.state.user
+		this.getBrands()
 	},
 	methods: {
+
+	    async getBrands() {
+
+	      const userSlug = this.user.username
+
+	      this.$store.commit('setIsLoading', true)
+
+	      await axios
+	        .get(`/api/v1/profile/${userSlug}/`)
+	        .then(response => {
+	          this.brands = response.data.brands
+	          console.log(this.brands)
+
+	        })
+	        .catch(error => {
+	          console.log(error)
+
+	          toast({
+	            message: 'Что-то пошло не так. Попробуйте еще раз',
+	            type: 'is-danger',
+	            dismissble: true,
+	            pauseOnHover: true,
+	            duration: 2000,
+	            position: 'bottom-right',
+	          })
+
+	        })
+
+	      this.$store.commit('setIsLoading', false)
+	    },	
 		
 		logout() {
 			axios.defaults.headers.common["Authorization"] = ""
 
 			localStorage.removeItem("token")
 			localStorage.removeItem("username")
-			localStorage.removeItem("userid")
+			// localStorage.removeItem("userid")
 			localStorage.removeItem("user")
 
 			this.$store.commit('removeToken')

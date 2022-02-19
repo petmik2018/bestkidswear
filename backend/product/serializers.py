@@ -2,6 +2,7 @@ from rest_framework import serializers
 from .models import Brand, Product, Image
 from stock.serializers import StockSerializer
 from shops.serializers import WhereToBuySerializer
+from statistic.serializers import ClickAbstractSerializer
 
 
 class BrandShortSerializer(serializers.ModelSerializer):
@@ -14,6 +15,35 @@ class BrandShortSerializer(serializers.ModelSerializer):
             "get_image",
             "get_brand_url",
             "get_absolute_url",
+            "is_active"
+        )
+
+
+class ClickProductSerializer(serializers.ModelSerializer):
+
+    clicks = ClickAbstractSerializer(many=True)
+
+    class Meta:
+        model = Product
+        fields = (
+            "id",
+            "get_fullname",
+            "clicks",
+        )
+
+
+class BrandClicksSerializer(serializers.ModelSerializer):
+
+    clicks = ClickAbstractSerializer(many=True)
+    products = ClickProductSerializer(many=True)
+
+    class Meta:
+        model = Brand
+        fields = (
+            "id",
+            "name",
+            "clicks",
+            "products"
         )
 
 
@@ -40,6 +70,7 @@ class ProductShortSerializer(serializers.ModelSerializer):
             "basic_price",
             "alt",
             "get_product_url",
+            "is_active"
         )
 
 
@@ -98,5 +129,3 @@ class ProductsListSerializer(serializers.ModelSerializer):
             "short_info",
             "get_image",
         )
-
-

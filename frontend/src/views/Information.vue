@@ -40,8 +40,8 @@ export default {
   },
   mounted() {
     document.title = 'Information'
-  	this.getBonuses()
-    this.getInformation()
+  	// this.getBonuses()
+   //  this.getInformation()
 
   },
   methods: {

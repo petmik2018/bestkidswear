@@ -89,6 +89,8 @@ export default {
 					const token = response.data.auth_token
 					const userStr = response.config.data
 
+					console.log(response)
+
 
 					this.$store.commit('setToken', token)
 					this.$store.commit('setUser', userStr)

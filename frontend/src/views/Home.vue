@@ -75,12 +75,10 @@ export default {
     NewBox
   },
   mounted() {
-  	// this.getActions()
+    document.title = 'BestKidsWear'
     this.getBrands()
     this.getShops()
     this.getNews()
-
-    document.title = 'BestKidsWear'
   },
   methods: {
     async getBrands(){

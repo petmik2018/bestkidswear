@@ -12,6 +12,7 @@ class Brand(models.Model):
     short_info = models.CharField(max_length=255)
     detailed_info = models.TextField(blank=True, null=True)
     owner = models.ForeignKey(Profile, related_name='brands', on_delete=models.CASCADE, blank=True, null=True)
+    is_active = models.BooleanField(default=False, blank=True, null=True)
 
     class Meta:
         ordering = ('name',)
@@ -56,6 +57,7 @@ class Product(models.Model):
     sizes_scale = models.CharField(max_length=255)
     date_added = models.DateTimeField(auto_now_add=True)
     alt = models.CharField(max_length=64, blank=True, null=True)
+    is_active = models.BooleanField(default=False, blank=True, null=True)
 
     class Meta:
         unique_together = ('name', 'color')

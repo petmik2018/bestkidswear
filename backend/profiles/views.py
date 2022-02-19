@@ -9,7 +9,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
 from .models import BonusSettings, Profile
-from .serializers import BonusSettingsSerializer, ProfileSerializer, PatchProfileSerializer
+from .serializers import BonusSettingsSerializer, ProfileSerializer, PatchProfileSerializer, ProfileClicksSerializer
 
 
 class GetBonusSettings(APIView):
@@ -26,17 +26,25 @@ class ProfilesList(APIView):
         return Response(serializer.data)
 
 
+# class ProfileDetail(APIView):
+#
+#     def get_object(self, pk):
+#         try:
+#             return Profile.objects.get(pk=pk)
+#         except Profile.DoesNotExist:
+#             raise Http404
+#
+#     def get(self, request, pk, format=None):
+#         profile = self.get_object(pk)
+#         serializer = ProfileSerializer(profile)
+#         return Response(serializer.data)
+
 class ProfileDetail(APIView):
 
-    def get_object(self, pk):
-        try:
-            return Profile.objects.get(pk=pk)
-        except Profile.DoesNotExist:
-            raise Http404
-
-    def get(self, request, pk, format=None):
-        profile = self.get_object(pk)
-        serializer = ProfileSerializer(profile)
+    def get(self, request, username, format=None):
+        profiles = Profile.objects.all().filter(name=username)
+        profile = profiles[0]
+        serializer = ProfileClicksSerializer(profile)
         return Response(serializer.data)
 
 

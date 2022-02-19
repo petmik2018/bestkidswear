@@ -1,35 +1,38 @@
 from rest_framework.views import APIView
+from django.http import Http404
 
-from .models import BrandClick
 from rest_framework.response import Response
 
-from .serializers import BrandClickSerializer
+from .models import AbstractClick
+from product.models import Brand
+
+from .serializers import ClickSerializer
 
 
 class ClicksList(APIView):
 
     def get(self, request, format=None):
-        clicks = BrandClick.objects.all()
-        serializer = BrandClickSerializer(clicks, many=True)
+        clicks = AbstractClick.objects.all()
+        serializer = ClickSerializer(clicks, many=True)
         return Response(serializer.data)
 
     def post(self, request):
-        serializer = BrandClickSerializer(data=request.data)
+        serializer = ClickSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response("wrong parameters")
 
+class BrandClicksList(APIView):
+    def get_objects(self, pk):
+        try:
+            return AbstractClick.objects.filter(brand=pk)
+        except AbstractClick.DoesNotExist:
+            raise Http404
 
-# class CreateBrandClick(APIView):
-#     def get(self, request, format=None):
-#         orders = BrandClick.objects.all()
-#         serializer = CreateBrandClickSerializer(orders, many=True)
-#         return Response(serializer.data)
-#
-#     def post(self, request):
-#         serializer = CreateBrandClickSerializer(data=request.data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data)
-#         return Response("wrong parameters")
+    def get(self, request, pk, format=None):
+        click = self.get_objects(pk)
+        serializer = ClickSerializer(click, many=True)
+        return Response(serializer.data)
+
+
