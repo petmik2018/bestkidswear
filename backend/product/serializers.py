@@ -29,6 +29,7 @@ class ClickProductSerializer(serializers.ModelSerializer):
             "id",
             "get_fullname",
             "clicks",
+            "is_active"
         )
 
 
@@ -43,7 +44,8 @@ class BrandClicksSerializer(serializers.ModelSerializer):
             "id",
             "name",
             "clicks",
-            "products"
+            "products",
+            "is_active"
         )
 
 

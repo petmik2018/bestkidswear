@@ -39,7 +39,7 @@ class ProfilesList(APIView):
 #         serializer = ProfileSerializer(profile)
 #         return Response(serializer.data)
 
-class ProfileDetail(APIView):
+class ProfileDetails(APIView):
 
     def get(self, request, username, format=None):
         profiles = Profile.objects.all().filter(name=username)
